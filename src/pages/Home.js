@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useBlogsContext } from "../hooks/useBlogsContext";
 
 // Improting compontents
 import BlogDetails from "../components/BlogDetails";
@@ -6,7 +7,8 @@ import BlogForm from "../components/BlogForm";
 
 const Home = () => {
     const base_url = "https://mern-api-sfto.onrender.com/api"
-    const [blogs, setBlogs] = useState(null)
+
+    const {blogs, dispatch} = useBlogsContext()
 
     useEffect(() => {
         const fetchBlogs = async () => {
@@ -15,12 +17,12 @@ const Home = () => {
             console.log(json)
             
             if(response.ok){
-                setBlogs(json)
+                dispatch({type:'SET_BLOGS', payload: json})
             }
         }
 
         fetchBlogs()
-    }, [])
+    }, [dispatch])
 
 
 

@@ -1,10 +1,14 @@
 import { useState } from "react";
+import { useBlogsContext } from "../hooks/useBlogsContext";
 
 const BlogForm = () => {
   const [name, setName] = useState("");
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [error, setError] = useState(null);
+  const [emptyFields, setEmptyFields ] = useState([])
+
+  const {dispatch} = useBlogsContext()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -23,13 +27,16 @@ const BlogForm = () => {
 
     if(!response.ok){
         setError(json.error)
+        setEmptyFields(json.emptyFields)
     }
 
     if(response.ok){
         setError(null)
+        setEmptyFields([])
         setName('')
         setTitle('')
         setBody('')
+        dispatch({type:'CREATE_BLOG', payload: json.blog})
     }
 
   }
@@ -39,13 +46,13 @@ const BlogForm = () => {
       <h3>Add New Blog</h3>
 
       <label htmlFor="name">Your Name:</label>
-      <input type="text" onChange={(e) => setName(e.target.value)} id="name" value={name} />
+      <input className={ emptyFields.includes('Name') ? 'error' : '' } type="text" onChange={(e) => setName(e.target.value)} id="name" value={name} />
 
       <label htmlFor="title">Blog Title:</label>
-      <input type="text" onChange={(e) => setTitle(e.target.value)} id="title" value={title} />
+      <input className={emptyFields.includes('Title') ? 'error' : ''} type="text" onChange={(e) => setTitle(e.target.value)} id="title" value={title} />
 
       <label htmlFor="body">Blog Body:</label>
-      <textarea name="body" id="body" onChange={(e) => setBody(e.target.value)} value={body} cols="20" rows="5"></textarea>
+      <textarea className={emptyFields.includes('Body') ? 'error' : '' } name="body" id="body" onChange={(e) => setBody(e.target.value)} value={body} cols="20" rows="5"></textarea>
       <button>Add Blog</button>
       {error && <div className="error">{error}</div>}
     </form>

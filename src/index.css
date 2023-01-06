@@ -101,8 +101,31 @@ div.error {
   border-radius: 4px;
   margin: 20px 0;
 }
-input.error{
+input.error,
+textarea.error{
   border: 1px solid var(--error);
+}
+.delete:hover{
+  background: #dc3545;
+  color: white;
+}
+
+.created_updated{
+  margin-top: 10px;
+}
+
+.navbar-wrap{
+  list-style-type: none;
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 20px;
+}
+
+.navbar-wrap a:hover{
+  color: var(--primary);
 }
 
 .blob {

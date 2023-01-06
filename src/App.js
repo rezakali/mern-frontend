@@ -4,6 +4,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Utilities from "./pages/Utilities";
 import Navbar from "./components/Navbar";
+import Fun from "./pages/Fun";
+import AboutMe from "./pages/AboutMe";
 
 function App() {
   return (
@@ -19,6 +21,14 @@ function App() {
             <Route
               path="/utilities"
               element={<Utilities />}
+            ></Route>
+            <Route
+              path="/fun"
+              element={<Fun />}
+            ></Route>
+            <Route
+              path="/about"
+              element={<AboutMe />}
             ></Route>
           </Routes>
         </div>
